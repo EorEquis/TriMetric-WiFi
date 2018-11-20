@@ -10,12 +10,13 @@ char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as k
 int status = WL_IDLE_STATUS;
 WiFiServer server(80);
 
-String currString = "";
+String curString = "";
 String webString = "T%=N/A,W=N/A,DSC=N/A,DSE=N/A,PW=N/A,r%=N/A,pD=N/A,V=N/A,FV=N/A,V2=N/A,A=N/A,FA=N/A,PW=N/A,AH=N/A,";
 const char introChar = 'T';
 bool introCharRx = false;
 
 unsigned long previousMillis = 0;  
+int interval = 10000;
 
 void setup() {
   //Configure pins for Adafruit ATWINC1500 Feather
@@ -42,7 +43,7 @@ void setup() {
   }
   server.begin();                           // start the web server on port 80
   printWiFiStatus();                        // you're connected now, so print out the status
-    Serial.end
+    Serial.end();
 }
 
 void loop() {
@@ -52,18 +53,17 @@ void loop() {
   WiFiClient client = server.available();   // listen for incoming clients
 
   if (client) {                             // if you get a client,
-    Serial.println();
-    Serial.print("I have a client ");
-    Serial.print("sending htmlString = ");
-    Serial.println(webString);
+//    Serial.println();
+//    Serial.print("I have a client ");
+//    Serial.print("sending htmlString = ");
+//    Serial.println(webString);
     client.println("HTTP/1.1 200 OK");
     client.println("Content-type:text/html");
     client.println();
     client.print(webString);
-    //client.print("I be here in the obs");
     client.println();
     client.stop();
-    Serial.println("client disonnected");
+//    Serial.println("client disonnected");
   }
         
   if (currentMillis - previousMillis >= interval) {
@@ -86,9 +86,9 @@ void loop() {
           curString = curString + String(c);
         }
         else if (c == introChar) {
-          introCharRx = false;
           webString=curString;
           curString="";
+          introCharRx = false;
         }
       }
     }
