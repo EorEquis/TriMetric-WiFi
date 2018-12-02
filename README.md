@@ -1,3 +1,3 @@
 # TriMetric-WiFi
-TriMetric Serial data odelivered via WiFi instead of serial.
+TriMetric Serial data delivered via WiFi instead of serial.
 
