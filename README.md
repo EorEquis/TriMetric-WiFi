@@ -1,2 +1,3 @@
 # TriMetric-WiFi
-TriMetric Serial data on an ESP8266
+TriMetric Serial data delivered via WiFi instead of serial.
+
